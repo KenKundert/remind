@@ -1,0 +1,125 @@
+#!/usr/bin/env python3
+"""
+Raise an alarm.
+
+Usage:
+    alarm [options] <time_spec>...
+
+Options:
+    -m <message>, --msg <message>   The message to display
+
+The time spec can either be an absolute time, such as 3:30pm or 15:30, or it can 
+be a relative time given in seconds, minutes, or hours. For example:
+
+    alarm 4pm
+    alarm 15m
+
+You can give several time specification, though only one should be absolute, and 
+if given, it should be the first.  Multiple relative times accumulate and can be 
+negative.  Do not give a negative relative time as the first. So for example:
+
+    alarm 4pm -15m
+
+At the specified time, in this case 3:45pm, a notification is raised.
+"""
+
+# Imports {{{1
+from docopt import docopt
+from inform import display, fatal, notify, terminate
+from pathlib import Path
+from quantiphy import Quantity, UnitConversion, QuantiPhyError
+from time import sleep
+import arrow
+import os
+
+# Constants {{{1
+notification_urgency = 'critical'
+
+# Time conversions {{{1
+UnitConversion('s', 'sec second seconds')
+UnitConversion('s', 'm min minute minutes', 60)
+UnitConversion('s', 'h hr hour hours', 60*60)
+UnitConversion('s', 'd day days', 24*60*60)
+UnitConversion('s', 'w week weeks', 7*24*60*60)
+UnitConversion('s', 'M month months', 30*24*60*60)
+UnitConversion('s', 'y year years', 365*24*60*60)
+Quantity.set_prefs(ignore_sf=True)
+
+# Time formats {{{1
+time_formats = {
+    'h:mm:ss A': 'ex. 1:30:00 PM, 1:30:00 pm',
+    'h:mm:ssA': 'ex. 1:30:00PM, 1:30:00pm',
+    'h:mm A': 'ex. 1:30 PM, 1:30 pm',
+    'h:mmA': 'ex. 1:30PM, 1:30pm',
+    'hA': 'ex. 1PM or 1pm',
+    'hA': 'ex. 1PM or 1pm',
+    'HH:mm:ss': 'ex. 13:00:00',
+    'HH:mm': 'ex. 13:00',
+}
+
+# Utility functions {{{1
+def when(seconds):
+    if seconds < 120:
+        return f'{seconds:0.0f} seconds'
+    minutes = seconds / 60
+    if minutes < 120:
+        return f'{minutes:0.0f} minutes'
+    hours = minutes / 60
+    return f'{hours:0.1f} hours'
+
+# Main {{{1
+cmdline = docopt(__doc__, options_first=True)
+message = cmdline['--msg']
+if not message:
+    message = 'ALARM'
+seconds = Quantity(0, 's')
+now = arrow.now()
+target = now
+
+# process the command line {{{2
+for each in cmdline['<time_spec>']:
+    if each == 'now':
+        target = arrow.now()
+    else:
+        for fmt in time_formats:
+            try:
+                specified = arrow.get(each, fmt)
+                delta = specified - specified.floor('day')
+                target = now.floor('day') + delta
+                if specified < now:
+                    target.shift(hours=24)
+                break
+            except arrow.parser.ParserError:
+                pass
+        else:
+            try:
+                seconds = seconds.add(Quantity(each, 'm', scale='s'))
+            except QuantiPhyError as e:
+                fatal(e)
+
+# wait for alarm {{{2
+try:
+    target = target.shift(seconds=seconds)
+    seconds = (target - now).total_seconds()
+    if seconds <= 0:
+        seconds += 24*60*60
+    if seconds <= 0:
+        terminate(f'target time was {target.humanize()}.')
+    display(
+        f"Alarm scheduled for {target.format('h:mm A')},",
+        f"{when(seconds)} from now."
+    )
+
+    # move process to background by duplicating it and exiting the original
+    if os.fork():
+        print('parent process exiting.')
+        os._exit(0)
+
+    # wait
+    sleep(seconds)
+
+    # raise the alarm
+    notify(message, urgency=notification_urgency)
+
+except KeyboardInterrupt:
+    display('killed')
