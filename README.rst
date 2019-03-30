@@ -19,7 +19,7 @@ minutes or hours, or you can use both. So, you can say::
 In the first case the alarm goes off at 4pm, in the second it goes off at 
 3:45pm, and in the third it goes off in 10 minutes.  When the alarm goes off 
 a notification is raised. You can specify the message in the notification using 
-the -m or --message option.
+the -m or --msg option.
 
 You can specify the time from now using seconds, minutes, hours, etc.  When 
 specifying the time of day, you can use the following formats::
