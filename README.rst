@@ -33,7 +33,7 @@ specifying the time of day, you can use the following formats::
     'HH:mm:ss': ex. 13:00:00
     'HH:mm': ex. 13:00
 
-To install this program, run the following:
+To install this program, run the following::
 
     git clone https://github.com/KenKundert/alarm.git
     cd alarm
