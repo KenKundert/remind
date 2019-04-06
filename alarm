@@ -34,6 +34,8 @@ import os
 
 # Constants {{{1
 notification_urgency = 'critical'  # chose from: critical, normal, low
+__version__ = '0.0.0'
+__released__ = '2019-01-16'
 
 # Time conversions {{{1
 UnitConversion('s', 'sec second seconds')
@@ -112,7 +114,6 @@ try:
 
     # move process to background by duplicating it and exiting the original
     if os.fork():
-        print('parent process exiting.')
         os._exit(0)
 
     # wait
