@@ -34,8 +34,8 @@ import os
 
 # Constants {{{1
 notification_urgency = 'critical'  # chose from: critical, normal, low
-__version__ = '0.0.1'
-__released__ = '2019-04-06'
+__version__ = '0.0.2'
+__released__ = '2019-04-08'
 
 # Time conversions {{{1
 UnitConversion('s', 'sec second seconds')
