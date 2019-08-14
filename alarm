@@ -70,11 +70,7 @@ def when(seconds):
     return f'{hours:0.1f} hours'
 
 # Main {{{1
-cmdline = docopt(
-    __doc__,
-    version = f'alarm {__version__} ({__released__})',
-    options_first = True
-)
+cmdline = docopt(__doc__, version = f'alarm {__version__} ({__released__})')
 message = cmdline['--msg']
 if not message:
     message = 'ALARM'
