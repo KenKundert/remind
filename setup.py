@@ -5,7 +5,7 @@ with open('README.rst') as f:
 
 setup(
     name = 'alarm',
-    version = '0.0.2',
+    version = '0.0.3',
     description = 'reminder program',
     long_description = readme,
     author = "Ken Kundert",

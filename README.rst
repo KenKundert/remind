@@ -2,8 +2,8 @@ Alarm - Schedule Notification Reminders
 =======================================
 
 :Author: Ken Kundert
-:Version: 0.0.2
-:Released: 2019-04-08
+:Version: 0.0.3
+:Released: 2020-01-03
 
 
 Alarm schedules notification reminders. You can specify the time either using 
