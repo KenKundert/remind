@@ -20,6 +20,13 @@ negative.  Do not give a negative relative time as the first. So for example:
 
     alarm 4pm -15m
 
+Any argument that is not recognized as a time spec is taken to be a message 
+fragment and is appended to the message. So, if you have a doctors appointment 
+at 2pm and it will take you 30 minutes to get there and you want to have 
+a buffer of 15 minutes, you can use:
+
+    alarm 2pm -30m -15m leave for the doctor
+
 At the specified time, in this case 3:45pm, a notification is raised.
 """
 
@@ -34,6 +41,7 @@ import os
 
 # Constants {{{1
 notification_urgency = 'critical'  # chose from: critical, normal, low
+default_message = 'ALARM'
 __version__ = '0.0.2'
 __released__ = '2019-04-08'
 
@@ -76,9 +84,9 @@ cmdline = docopt(
     options_first = True  # need this to allow time offsets to be negative
 )
 
-message = cmdline['--msg']
-if not message:
-    message = 'ALARM'
+message = []
+if cmdline['--msg']:
+    message.append(cmdline['--msg'])
 seconds = Quantity(0, 's')
 now = arrow.now()
 target = now
@@ -102,7 +110,7 @@ for each in cmdline['<time_spec>']:
             try:
                 seconds = seconds.add(Quantity(each, 'm', scale='s'))
             except QuantiPhyError as e:
-                fatal(e)
+                message.append(each)
 
 # wait for alarm {{{2
 try:
@@ -116,6 +124,10 @@ try:
         f"Alarm scheduled for {target.format('h:mm A')},",
         f"{when(seconds)} from now."
     )
+    if not message:
+        message = [default_message]
+    message = ' '.join(message)
+    display(f'Message is: {message}')
 
     # move process to background by duplicating it and exiting the original
     if os.fork():
