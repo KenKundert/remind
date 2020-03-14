@@ -32,7 +32,7 @@ At the specified time, in this case 3:45pm, a notification is raised.
 
 # Imports {{{1
 from docopt import docopt
-from inform import display, fatal, notify, terminate
+from inform import display, fatal, notify, terminate, Color
 from pathlib import Path
 from quantiphy import Quantity, UnitConversion, QuantiPhyError
 from time import sleep
@@ -90,9 +90,11 @@ if cmdline['--msg']:
 seconds = Quantity(0, 's')
 now = arrow.now()
 target = now
+if not Color.isTTY():
+    display = notify
 
 # process the command line {{{2
-for each in cmdline['<time_spec>']:
+for i, each in enumerate(cmdline['<time_spec>']):
     if each == 'now':
         target = arrow.now()
     else:
@@ -110,7 +112,8 @@ for each in cmdline['<time_spec>']:
             try:
                 seconds = seconds.add(Quantity(each, 'm', scale='s'))
             except QuantiPhyError as e:
-                message.append(each)
+                message.extend(cmdline['<time_spec>'][i:])
+                break
 
 # wait for alarm {{{2
 try:
@@ -120,14 +123,14 @@ try:
         seconds += 24*60*60
     if seconds <= 0:
         terminate(f'target time was {target.humanize()}.')
-    display(
-        f"Alarm scheduled for {target.format('h:mm A')},",
-        f"{when(seconds)} from now."
-    )
     if not message:
         message = [default_message]
     message = ' '.join(message)
-    display(f'Message is: {message}')
+    display(
+        f"Alarm scheduled for {target.format('h:mm A')},",
+        f"{when(seconds)} from now.",
+        codicil = f'Message: {message}',
+    )
 
     # move process to background by duplicating it and exiting the original
     if os.fork():
