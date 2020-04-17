@@ -6,7 +6,7 @@ with open('README.rst', encoding='utf-8') as f:
 
 setup(
     name = 'schedule-reminder',
-    version = '0.2.0',
+    version = '0.3.0',
     description = 'reminder program',
     long_description = readme,
     author = "Ken Kundert",

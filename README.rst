@@ -2,7 +2,7 @@ Remind - Schedule Notification Reminders
 ========================================
 
 :Author: Ken Kundert
-:Version: 0.2.0
+:Version: 0.3.0
 :Released: 2020-04-16
 
 
