@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Raise an alarm.
+Schedule a reminder
 
 Usage:
-    alarm [options] <time_spec>...
+    remind [options] <time_spec>...
 
 Options:
     -m <message>, --msg <message>   The message to display
@@ -11,23 +11,23 @@ Options:
 The time spec can either be an absolute time, such as 3:30pm or 15:30, or it can 
 be a relative time given in seconds, minutes, or hours. For example:
 
-    alarm 4pm
-    alarm 15m
+    remind 4pm
+    remind 15m
 
 You can give several time specification, though only one should be absolute, and 
 if given, it should be the first.  Multiple relative times accumulate and can be 
 negative.  Do not give a negative relative time as the first. So for example:
 
-    alarm 4pm -15m
+    remind 4pm -15m
 
 Any argument that is not recognized as a time spec is taken to be a message 
 fragment and is appended to the message. So, if you have a doctors appointment 
 at 2pm and it will take you 30 minutes to get there and you want to have 
 a buffer of 15 minutes, you can use:
 
-    alarm 2pm -30m -15m leave for the doctor
+    remind 2pm -30m -15m leave for the doctor
 
-At the specified time, in this case 3:45pm, a notification is raised.
+At the specified time, in this case 1:15pm, a notification is raised.
 """
 
 # Imports {{{1
@@ -41,7 +41,7 @@ import os
 
 # Constants {{{1
 notification_urgency = 'critical'  # chose from: critical, normal, low
-default_message = 'ALARM'
+default_message = "It's time!"
 __version__ = '0.2.0'
 __released__ = '2020-04-16'
 
@@ -80,7 +80,7 @@ def when(seconds):
 # Main {{{1
 cmdline = docopt(
     __doc__,
-    version = f'alarm {__version__} ({__released__})',
+    version = f'remind {__version__} ({__released__})',
     options_first = True  # need this to allow time offsets to be negative
 )
 
@@ -115,7 +115,7 @@ for i, each in enumerate(cmdline['<time_spec>']):
                 message.extend(cmdline['<time_spec>'][i:])
                 break
 
-# wait for alarm {{{2
+# wait for desired moment {{{2
 try:
     target = target.shift(seconds=seconds)
     seconds = (target - now).total_seconds()
@@ -139,7 +139,7 @@ try:
     # wait
     sleep(seconds)
 
-    # raise the alarm
+    # raise the notification
     notify(message, urgency=notification_urgency)
 
 except KeyboardInterrupt:

@@ -9,7 +9,6 @@ setup(
     version = '0.2.0',
     description = 'reminder program',
     long_description = readme,
-    long_description_content_type='text/x-rst',
     author = "Ken Kundert",
     author_email = 'remind@nurdletech.com',
     url = 'https://github.com/kenkundert/remind',
