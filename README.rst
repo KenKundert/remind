@@ -1,6 +1,13 @@
 Remind - Schedule Notification Reminders
 ========================================
 
+.. image:: https://img.shields.io/pypi/v/schedule-reminder.svg
+    :target: https://pypi.python.org/pypi/schedule-reminder
+
+.. image:: https://img.shields.io/pypi/pyversions/schedule-reminder.svg
+    :target: https://pypi.python.org/pypi/schedule-reminder/
+
+
 :Author: Ken Kundert
 :Version: 0.3.0
 :Released: 2020-04-16

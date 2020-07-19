@@ -32,7 +32,7 @@ At the specified time, in this case 1:15pm, a notification is raised.
 
 # Imports {{{1
 from docopt import docopt
-from inform import display, fatal, notify, terminate, Color
+from inform import display, fatal, notify, terminate, Color, full_stop
 from pathlib import Path
 from quantiphy import Quantity, UnitConversion, QuantiPhyError
 from time import sleep
@@ -66,6 +66,10 @@ time_formats = {
     'HH:mm:ss': 'ex. 13:00:00',
     'HH:mm': 'ex. 13:00',
 }
+aliases = dict(
+    noon = '12pm',
+    midnight = '12am',
+)
 
 # Utility functions {{{1
 def when(seconds):
@@ -95,6 +99,7 @@ if not Color.isTTY():
 
 # process the command line {{{2
 for i, each in enumerate(cmdline['<time_spec>']):
+    each = aliases.get(each, each)
     if each == 'now':
         target = arrow.now()
     else:
@@ -108,6 +113,8 @@ for i, each in enumerate(cmdline['<time_spec>']):
                 break
             except arrow.parser.ParserError:
                 pass
+            except ValueError as e:
+                fatal(full_stop(e), culprit=each)
         else:
             try:
                 seconds = seconds.add(Quantity(each, 'm', scale='s'))
