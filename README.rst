@@ -38,6 +38,8 @@ example::
 
     remind 3h 15m
 
+You can use *noon* and *midnight* as aliases for 12PM and 12AM.
+
 When specifying the time of day, you can use the following formats::
 
     'h:mm:ss A': ex. 1:30:00 PM, 1:30:00 pm
