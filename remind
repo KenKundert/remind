@@ -42,8 +42,8 @@ import os
 # Constants {{{1
 notification_urgency = 'critical'  # chose from: critical, normal, low
 default_message = "It's time!"
-__version__ = '0.3.0'
-__released__ = '2020-04-16'
+__version__ = '1.0.0'
+__released__ = '2020-07-19'
 
 # Time conversions {{{1
 UnitConversion('s', 'sec second seconds')
