@@ -28,6 +28,11 @@ a buffer of 15 minutes, you can use:
     remind 2pm -30m -15m leave for the doctor
 
 At the specified time, in this case 1:15pm, a notification is raised.
+
+Remind is only accurate if the underlying computer is not put to sleep during 
+waiting period. In all cases remind computes the number of seconds to wait 
+before issuing the reminder. The counting of elapsed seconds does not occur when 
+the computer is asleep.
 """
 
 # Imports {{{1
