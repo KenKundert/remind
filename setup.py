@@ -18,6 +18,7 @@ setup(
     scripts = 'remind'.split(),
     install_requires = 'docopt inform quantiphy arrow'.split(),
     python_requires = '>=3.6',
+    zip_safe = True,
     keywords = 'reminder notification schedule'.split(),
     classifiers=[
         'Development Status :: 5 - Production/Stable',
