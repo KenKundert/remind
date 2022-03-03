@@ -50,6 +50,15 @@ When specifying the time of day, you can use the following formats::
     'HH:mm:ss': ex. 13:00:00
     'HH:mm': ex. 13:00
 
+Be aware that *remind* calculates how long it must wait and then sleeps in the 
+background before waking up and delivering the message after the prescribed 
+amount of time has passed.  If you turn you computer off during this time the 
+sleeping process will be killed and no reminder will be given, even if you turn 
+your computer back on before the scheduled time.  If you put your computer to 
+sleep, the sleeping remind process will not recognize the passage of time and so 
+the reminder will be given late, delayed by the length of time your computer was 
+asleep.
+
 You can use pip to install the program::
 
     pip3 install --user schedule-reminder
