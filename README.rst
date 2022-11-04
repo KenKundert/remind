@@ -1,4 +1,4 @@
-Remind - Schedule Notification Reminders
+Remind — Schedule Notification Reminders
 ========================================
 
 .. image:: https://img.shields.io/pypi/v/schedule-reminder.svg
