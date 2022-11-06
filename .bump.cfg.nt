@@ -1,8 +1,8 @@
 major: 1
-minor: 0
+minor: 1
 patch: 0
-revision: 0
-type: release
+revision: 1
+type: alpha
 files:
     setup.py:
         version: version
@@ -12,3 +12,4 @@ files:
     README.rst:
         version: Version
         date: Released
+style: python
