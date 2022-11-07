@@ -60,3 +60,18 @@ late, or the process will resume waiting for the appointed time.
 You can use pip to install the program::
 
     pip3 install --user schedule-reminder
+
+
+Releases
+--------
+
+**Latest development release**:
+    | Version: 1.1a1
+    | Released: 2020-03-03
+
+
+**1.1 (2022-11-07)**:
+    - Enhance implementation so reminders re-synchronize after computer wakes.
+
+**1.0 (2020-07-19)**:
+    - Initial production release.
