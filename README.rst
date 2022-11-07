@@ -9,8 +9,8 @@ Remind — Schedule Notification Reminders
 
 
 :Author: Ken Kundert
-:Version: 1.1a1
-:Released: 2022-11-06
+:Version: 1.1
+:Released: 2022-11-07
 
 
 Remind schedules notification reminders. You can specify the time either using 
@@ -66,8 +66,8 @@ Releases
 --------
 
 **Latest development release**:
-    | Version: 1.1a1
-    | Released: 2020-03-03
+    | Version: 1.1
+    | Released: 2022-11-07
 
 
 **1.1 (2022-11-07)**:
