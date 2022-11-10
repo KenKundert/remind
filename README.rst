@@ -64,7 +64,7 @@ You can use pip to install the program::
 It installs into ~/.local/bin, so you will need to add that to your shell’s 
 path.  You also need an active notification daemon.  To check whether you have 
 one, run ``notify-send testing``.  If you get ‘command not found’ you will need 
-to install one.  I can recommend `https://dunst-project.org/`_.
+to install one.  I can recommend `dunst <https://dunst-project.org>`_.
 
 
 Releases
