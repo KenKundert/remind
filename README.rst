@@ -55,7 +55,7 @@ the notification, and only then terminates.  If the process is killed or some
 how lost, perhaps by restarting the computer, the reminder is also lost.  
 However, you can put the computer to sleep.  When the computer wakes, you will 
 either receive a past due notification with an indication that it is being given 
-late, or the process will resume waiting for the appointed time.
+late, or the process resumes waiting for the appointed time.
 
 You can use pip to install the program::
 
