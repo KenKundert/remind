@@ -81,7 +81,6 @@ time_formats = {
     "h:mm A": "ex. 1:30 PM, 1:30 pm",
     "h:mmA": "ex. 1:30PM, 1:30pm",
     "hA": "ex. 1PM or 1pm",
-    "hA": "ex. 1PM or 1pm",
     "HH:mm:ss": "ex. 13:00:00",
     "HH:mm": "ex. 13:00",
 }
