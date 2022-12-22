@@ -33,9 +33,9 @@ the first time specification.  So for example:
     remind 9am +6h harvest ice
 
 Any argument that is not recognized as a time spec is taken to be a message
-fragment and is appended to the message. So, if you have a doctors appointment
-at 2pm and it will take you 30 minutes to get there and you want to have
-a buffer of 15 minutes, you can use:
+fragment.  It terminates the time specification and is appended to the message.  
+So, if you have a doctors appointment at 2pm and it will take you 30 minutes to 
+get there and you want to have a buffer of 15 minutes, you can use:
 
     remind 2pm -30m -15m leave for the doctor
 
@@ -131,9 +131,9 @@ cmdline = docopt(
     options_first = True  # need this to allow time offsets to be negative
 )
 time_specs = cmdline["<time_spec>"]
-message = []
+message_fragments = []
 if cmdline["--msg"]:
-    message.append(cmdline["--msg"])
+    message_fragments.append(cmdline["--msg"])
 give_confirmation = True
 run_in_background = True
 give_reminder = True
@@ -181,33 +181,33 @@ for i, each in enumerate(time_specs):
             try:
                 seconds = seconds.add(Quantity(each, "m", scale="s"))
             except QuantiPhyError as e:
-                message.extend(cmdline["<time_spec>"][i:])
+                message_fragments.extend(cmdline["<time_spec>"][i:])
                 break
 
 # Wait and give reminder {{{2
 try:
     # correct for times that appear to be in the past {{{3
     target = target.shift(seconds=seconds)
-    seconds = (target - now).total_seconds()
-    if seconds <= 0:
+    sleep_interval = (target - now).total_seconds()
+    if sleep_interval <= 0:
         # target is in the past, advance it by a day
         corrected_target = target.shift(days=1)
-        seconds = (corrected_target - now).total_seconds()
-        if seconds <= 0:
+        sleep_interval = (corrected_target - now).total_seconds()
+        if sleep_interval <= 0:
             # target is still in the past, give an error message and quit
             terminate(f"target time was {target.humanize()}.")
         target = corrected_target
 
     # choose the message {{{3
-    if not message:
-        message = [default_message]
-    message = " ".join(message)
+    if not message_fragments:
+        message_fragments = [default_message]
+    message = " ".join(message_fragments)
 
     # print confirmation message {{{3
     if give_confirmation:
         display(
             f"Reminder scheduled for {target.format('h:mm A')},",
-            f"{when(seconds)} from now.",
+            f"{when(sleep_interval)} from now.",
             codicil = f"Message: {message}",
         )
 
@@ -219,15 +219,15 @@ try:
     # wait for scheduled time {{{3
     # wake up occasionally to recompute how much time remains
     # this allows computer to take a nap
-    while seconds > 0:
-        sleep(min(seconds, nap_interval))
-        seconds = (target - arrow.now()).total_seconds()
+    while sleep_interval > 0:
+        sleep(min(sleep_interval, nap_interval))
+        sleep_interval = (target - arrow.now()).total_seconds()
 
     # add warning if reminder is late {{{3
-    if -seconds > late_warning:
+    if -sleep_interval > late_warning:
         if notification_urgency == "low" and run_in_background:
             done()
-        late = f"Reminder is {when(seconds)} late."
+        late = f"Reminder is {when(sleep_interval)} late."
         message = "\n".join([message, late])
 
     # give reminder to user {{{3
