@@ -74,7 +74,6 @@ Releases
     | Version: 1.1
     | Released: 2022-11-07
 
-
 **1.1 (2022-11-07)**:
     - Enhance implementation so reminders re-synchronize after computer wakes.
 
