@@ -57,6 +57,10 @@ However, you can put the computer to sleep.  When the computer wakes, you will
 either receive a past due notification with an indication that it is being given 
 late, or the process resumes waiting for the appointed time.
 
+When run, *remind* prints the process ID (PID) of the reminder process that was 
+forked into the background.  You can run the *kill* program with this PID to 
+delete the reminder.
+
 You can use pip to install the program::
 
     pip3 install --user schedule-reminder

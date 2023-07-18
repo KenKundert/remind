@@ -17,7 +17,7 @@ setup(
     license = 'GPLv3+',
     scripts = 'remind'.split(),
     install_requires = 'docopt inform quantiphy arrow'.split(),
-    python_requires = '>=3.6',
+    python_requires = '>=3.8',
     zip_safe = True,
     keywords = 'reminder notification schedule'.split(),
     classifiers=[
