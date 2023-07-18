@@ -78,6 +78,9 @@ Releases
     | Version: 1.1
     | Released: 2022-11-07
 
+**1.2 (2023-07-18)**:
+    - Print PID so reminder can more easily be deleted if desired.
+
 **1.1 (2022-11-07)**:
     - Enhance implementation so reminders re-synchronize after computer wakes.
 
