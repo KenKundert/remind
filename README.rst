@@ -78,6 +78,9 @@ Releases
     | Version: 1.2
     | Released: 2023-07-18
 
+**1.3 (2024-10-09)**:
+    - Add the --today command line option.
+
 **1.2 (2023-07-18)**:
     - Print PID so reminder can more easily be deleted if desired.
 
