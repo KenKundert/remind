@@ -9,7 +9,7 @@ Remind — Schedule Notification Reminders
 
 
 :Author: Ken Kundert
-:Version: 1.2.1
+:Version: 1.3
 :Released: 2024-10-09
 
 
@@ -75,7 +75,7 @@ Releases
 --------
 
 **Latest development release**:
-    | Version: 1.2.1
+    | Version: 1.3
     | Released: 2024-10-09
 
 **1.3 (2024-10-09)**:

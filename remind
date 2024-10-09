@@ -65,7 +65,7 @@ default_urgency = "critical"
 default_message = "It’s time!"
 nap_interval = 60  # how often to wake and check time (seconds)
 late_warning = 60  # how late does a reminder need to be to warrant a warning (seconds)
-__version__ = "1.2.1"
+__version__ = "1.3"
 __released__ = "2024-10-09"
 
 # Time Conversions {{{2

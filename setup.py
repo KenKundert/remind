@@ -6,7 +6,7 @@ with open('README.rst', encoding='utf-8') as f:
 
 setup(
     name = 'schedule-reminder',
-    version = '1.2.1',
+    version = '1.3',
     author = "Ken Kundert",
     author_email = 'remind@nurdletech.com',
     description = 'schedule reminder notification',
