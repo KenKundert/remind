@@ -42,13 +42,16 @@ You can use *noon* and *midnight* as aliases for 12PM and 12AM.
 
 When specifying the time of day, you can use the following formats::
 
-    'h:mm:ss A': ex. 1:30:00 PM, 1:30:00 pm
     'h:mm:ssA': ex. 1:30:00PM, 1:30:00pm
-    'h:mm A': ex. 1:30 PM, 1:30 pm
     'h:mmA': ex. 1:30PM, 1:30pm
     'hA': ex. 1PM or 1pm
     'HH:mm:ss': ex. 13:00:00
     'HH:mm': ex. 13:00
+
+The following are also supported, but they must be quoted:
+
+    'h:mm:ss A': ex. "1:30:00 PM", '1:30:00 pm'
+    'h:mm A': ex. '1:30 PM', "1:30 pm"
 
 Be aware that *remind* runs in the background until the appointed time, issues 
 the notification, and only then terminates.  If the process is killed or some 
